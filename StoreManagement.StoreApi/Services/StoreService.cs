@@ -39,9 +39,18 @@ public class StoreService : IStoreService
         };
     }
 
-    public Task<bool> DeleteStoreAsync(int companyId, int storeId)
+    public async Task<bool> DeleteStoreAsync(int companyId, int storeId)
     {
-        throw new NotImplementedException();
+        var existingStore = await _context.Store
+            .FirstOrDefaultAsync(s => s.CompanyId == companyId && s.StoreId == storeId);
+        
+        if (existingStore == null)
+            return false;
+        
+        _context.Store.Remove(existingStore);
+        await _context.SaveChangesAsync();
+        
+        return true;
     }
 
     public async Task<StoreResponseDto?> GetStoreByIdAsync(int companyId, int storeId)
