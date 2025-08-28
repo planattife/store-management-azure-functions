@@ -10,9 +10,33 @@ public class StoreService : IStoreService
         _context = context;
     }
 
-    public Task<StoreResponseDto> CreateStoreAsync(int companyId, CreateStoreDto createStoreDto)
+    public async Task<StoreResponseDto> CreateStoreAsync(int companyId, CreateStoreDto createStoreDto)
     {
-        throw new NotImplementedException();
+        if (string.IsNullOrWhiteSpace(createStoreDto.Name))
+            throw new ArgumentException("Store name is required", nameof(createStoreDto.Name));
+        
+        if (string.IsNullOrWhiteSpace(createStoreDto.Address))
+            throw new ArgumentException("Store address is required", nameof(createStoreDto.Address));
+        
+        var store = new Store
+        {
+            CompanyId = companyId,
+            Name = createStoreDto.Name.Trim(),
+            Address = createStoreDto.Address.Trim(),
+            CreatedAt = DateTime.UtcNow
+        };
+        
+        _context.Store.Add(store);
+        await _context.SaveChangesAsync();
+        
+        return new StoreResponseDto
+        {
+            StoreId = store.StoreId,
+            CompanyId = store.CompanyId,
+            Name = store.Name,
+            Address = store.Address,
+            CreatedAt = store.CreatedAt
+        };
     }
 
     public Task<bool> DeleteStoreAsync(int companyId, int storeId)

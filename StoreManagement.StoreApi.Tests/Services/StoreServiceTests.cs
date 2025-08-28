@@ -101,30 +101,107 @@ public class StoreServiceTests
         // Assert
         Assert.Null(result);
     }
-    
+
     [Fact]
     public async Task GetStoreByIdAsync_WhenStoreExistsButFromADifferentCompany_ReturnsNull()
     {
         // Arrange
         using var context = GetInMemoryDbContext();
-        
-        var store = new Store 
-        { 
-            StoreId = 1, 
-            CompanyId = 1, 
-            Name = "Company 1 Store", 
-            Address = "Address" 
+
+        var store = new Store
+        {
+            StoreId = 1,
+            CompanyId = 1,
+            Name = "Company 1 Store",
+            Address = "Address"
         };
-        
+
         context.Store.Add(store);
         await context.SaveChangesAsync();
-        
+
         IStoreService storeService = new StoreService(context);
-        
+
         // Act
         var result = await storeService.GetStoreByIdAsync(2, 1);
-        
+
         // Assert
         Assert.Null(result);
+    }
+
+    [Fact]
+    public async Task CreateStoreAsync_WithValidData_CreatesAndReturnsStore()
+    {
+        // Arrange
+        using var context = GetInMemoryDbContext();
+
+        var companyId = 1;
+        var createStoreDto = new CreateStoreDto
+        {
+            Name = "New Store",
+            Address = "123 Main Street"
+        };
+
+        var storeService = new StoreService(context);
+
+        // Act
+        var result = await storeService.CreateStoreAsync(companyId, createStoreDto);
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.True(result.StoreId > 0);
+        Assert.Equal(companyId, result.CompanyId);
+        Assert.Equal("New Store", result.Name);
+        Assert.Equal("123 Main Street", result.Address);
+        Assert.True(result.CreatedAt <= DateTime.UtcNow);
+    }
+
+    [Fact]
+    public async Task CreateStoreAsync_StoreIsPersistedInDatabase()
+    {
+        // Arrange
+        using var context = GetInMemoryDbContext();
+
+        var companyId = 1;
+        var createStoreDto = new CreateStoreDto
+        {
+            Name = "Persistent Store",
+            Address = "123 Main Street"
+        };
+
+        var storeService = new StoreService(context);
+
+        // Act
+        var result = await storeService.CreateStoreAsync(companyId, createStoreDto);
+
+        // Assert
+        var savedStore = await context.Store
+            .FirstOrDefaultAsync(s => s.StoreId == result.StoreId);
+
+        Assert.NotNull(savedStore);
+        Assert.Equal(companyId, savedStore.CompanyId);
+        Assert.Equal("Persistent Store", savedStore.Name);
+        Assert.Equal("123 Main Street", savedStore.Address);
+    }
+
+    [Theory]
+    [InlineData("", "123 Main Street")]
+    [InlineData("New Store", "")]
+    public async Task CreateStoreAsync_WithInvalidData_ThrowsException(string name, string address)
+    {
+        // Arrange
+        using var context = GetInMemoryDbContext();
+
+        var companyId = 1;
+        var createStoreDto = new CreateStoreDto
+        {
+            Name = name,
+            Address = address
+        };
+
+        var storeService = new StoreService(context);
+
+        // Act and Assert
+        await Assert.ThrowsAsync<ArgumentException>(
+            () => storeService.CreateStoreAsync(companyId, createStoreDto));
     }
 }
