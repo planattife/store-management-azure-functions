@@ -20,9 +20,21 @@ public class StoreService : IStoreService
         throw new NotImplementedException();
     }
 
-    public Task<StoreResponseDto?> GetStoreByIdAsync(int companyId, int storeId)
+    public async Task<StoreResponseDto?> GetStoreByIdAsync(int companyId, int storeId)
     {
-        throw new NotImplementedException();
+        var store = await _context.Store
+            .Where(s => s.CompanyId == companyId && s.StoreId == storeId)
+            .Select(s => new StoreResponseDto
+            {
+                StoreId = s.StoreId,
+                CompanyId = s.CompanyId,
+                Name = s.Name,
+                Address = s.Address,
+                CreatedAt = s.CreatedAt
+            })
+            .FirstOrDefaultAsync();
+            
+            return store;
     }
 
     public async Task<IEnumerable<StoreResponseDto>> GetStoresAsync(int companyId)
