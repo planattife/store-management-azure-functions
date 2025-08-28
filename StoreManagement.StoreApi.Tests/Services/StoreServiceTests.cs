@@ -204,4 +204,171 @@ public class StoreServiceTests
         await Assert.ThrowsAsync<ArgumentException>(
             () => storeService.CreateStoreAsync(companyId, createStoreDto));
     }
+
+    [Fact]
+    public async Task UpdateStoreAsync_WithValidData_UpdatesAndReturnsStore()
+    {
+        // Arrange
+        using var context = GetInMemoryDbContext();
+        
+        var companyId = 1;
+        var storeId = 1;
+        
+        var originalStore = new Store
+        {
+            StoreId = storeId,
+            CompanyId = companyId,
+            Name = "New Name",
+            Address = "New Address"
+        };
+        
+        context.Store.Add(originalStore);
+        await context.SaveChangesAsync();
+        
+        var updateStoreDto = new UpdateStoreDto
+        {
+            Name = "Updated Name",
+            Address = "Updated Address"
+        };
+        
+        var storeService = new StoreService(context);
+        
+        // Act
+        var result = await storeService.UpdateStoreAsync(companyId, storeId, updateStoreDto);
+        
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(storeId, result.StoreId);
+        Assert.Equal(companyId, result.CompanyId);
+        Assert.Equal("Updated Name", result.Name);
+        Assert.Equal("Updated Address", result.Address);
+    }
+
+    [Fact]
+    public async Task UpdateStoreAsync_StoreIsPersistedInDatabase()
+    {
+        // Arrange
+        using var context = GetInMemoryDbContext();
+        
+        var companyId = 1;
+        var storeId = 1;
+        
+        var originalStore = new Store
+        {
+            StoreId = storeId,
+            CompanyId = companyId,
+            Name = "Before Update",
+            Address = "Before Address"
+        };
+        
+        context.Store.Add(originalStore);
+        await context.SaveChangesAsync();
+        
+        var updateStoreDto = new UpdateStoreDto
+        {
+            Name = "After Update",
+            Address = "After Address"
+        };
+        
+        var storeService = new StoreService(context);
+        
+        // Act
+        await storeService.UpdateStoreAsync(companyId, storeId, updateStoreDto);
+        
+        // Assert
+        var updatedStore = await context.Store
+            .FirstOrDefaultAsync(s => s.StoreId == storeId);
+        
+        Assert.NotNull(updatedStore);
+        Assert.Equal("After Update", updatedStore.Name);
+        Assert.Equal("After Address", updatedStore.Address);
+    }
+
+    [Fact]
+    public async Task UpdateStoreAsync_WhenStoreNotFound_ReturnsNull()
+    {
+        // Arrange
+        using var context = GetInMemoryDbContext();
+        
+        var updateStoreDto = new UpdateStoreDto
+        {
+            Name = "Updated Name",
+            Address = "Updated Address"
+        };
+        
+        var storeService = new StoreService(context);
+        
+        // Act
+        var result = await storeService.UpdateStoreAsync(1, 999, updateStoreDto);
+        
+        // Assert
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public async Task UpdateStoreAsync_WhenStoreBelongsToDifferentCompany_ReturnsNull()
+    {
+        // Arrange
+        using var context = GetInMemoryDbContext();
+        
+        var store = new Store
+        {
+            StoreId = 1,
+            CompanyId = 1,
+            Name = "Company 1 Store",
+            Address = "Address"
+        };
+        
+        context.Store.Add(store);
+        await context.SaveChangesAsync();
+        
+        var updateStoreDto = new UpdateStoreDto
+        {
+            Name = "Company 2 Store",
+            Address = "New Address"
+        };
+        
+        var storeService = new StoreService(context);
+        
+        // Act
+        var result = await storeService.UpdateStoreAsync(2, 1, updateStoreDto);
+        
+        // Assert
+        Assert.Null(result);
+        
+        var unchangedStore = await context.Store.FindAsync(1);
+        Assert.Equal("Company 1 Store", unchangedStore?.Name);
+    }
+
+    [Theory]
+    [InlineData("", "Address Update")]
+    [InlineData("Name Update", "")]
+    public async Task UpdateStoreAsync_WithInvalidData_ThrowsException(string name, string address)
+    {
+        // Arrange
+        using var context = GetInMemoryDbContext();
+        
+        var store = new Store
+        {
+            StoreId = 1,
+            CompanyId = 1,
+            Name = "Valid Store",
+            Address = "Valid Address"
+        };
+        
+        context.Store.Add(store);
+        await context.SaveChangesAsync();
+        
+        var updateStoreDto = new UpdateStoreDto
+        {
+            Name = name,
+            Address = address
+        };
+        
+        var storeService = new StoreService(context);
+        
+        // Act and Assert
+        await Assert.ThrowsAsync<ArgumentException>(
+            () => storeService.UpdateStoreAsync(1, 1, updateStoreDto));
+    }
 }
