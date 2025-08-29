@@ -1,0 +1,353 @@
+{
+	"info": {
+		"_postman_id": "d0ce070b-dc6e-43e8-b77c-56445214e61c",
+		"name": "Store Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9710881"
+	},
+	"item": [
+		{
+			"name": "Store",
+			"item": [
+				{
+					"name": "Create Store",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Company-Id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"\",\r\n    \"Address\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://storemanagement-api-f3h0hhe8f9erfyb5.brazilsouth-01.azurewebsites.net/api/stores",
+							"protocol": "https",
+							"host": [
+								"storemanagement-api-f3h0hhe8f9erfyb5",
+								"brazilsouth-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"stores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Company Stores",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Company-Id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://storemanagement-api-f3h0hhe8f9erfyb5.brazilsouth-01.azurewebsites.net/api/stores",
+							"protocol": "https",
+							"host": [
+								"storemanagement-api-f3h0hhe8f9erfyb5",
+								"brazilsouth-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"stores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Company Store By Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Company-Id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://storemanagement-api-f3h0hhe8f9erfyb5.brazilsouth-01.azurewebsites.net/api/stores/1",
+							"protocol": "https",
+							"host": [
+								"storemanagement-api-f3h0hhe8f9erfyb5",
+								"brazilsouth-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"stores",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Company Store",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Company-Id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"\",\r\n    \"Address\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://storemanagement-api-f3h0hhe8f9erfyb5.brazilsouth-01.azurewebsites.net/api/stores/1",
+							"protocol": "https",
+							"host": [
+								"storemanagement-api-f3h0hhe8f9erfyb5",
+								"brazilsouth-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"stores",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Company Store",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Company-Id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://storemanagement-api-f3h0hhe8f9erfyb5.brazilsouth-01.azurewebsites.net/api/stores/1",
+							"protocol": "https",
+							"host": [
+								"storemanagement-api-f3h0hhe8f9erfyb5",
+								"brazilsouth-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"stores",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Store Products",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Company-Id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://storemanagement-productapi-bageckfvb0bghsfp.brazilsouth-01.azurewebsites.net/api/stores/1/products",
+							"protocol": "https",
+							"host": [
+								"storemanagement-productapi-bageckfvb0bghsfp",
+								"brazilsouth-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"stores",
+								"1",
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Company-Id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"StoreId\": 1,\r\n    \"Name\": \"Product 1\",\r\n    \"Description\": \"Product 1 Description\",\r\n    \"Price\": 2.7\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://storemanagement-productapi-bageckfvb0bghsfp.brazilsouth-01.azurewebsites.net/api/products",
+							"protocol": "https",
+							"host": [
+								"storemanagement-productapi-bageckfvb0bghsfp",
+								"brazilsouth-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product By Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Company-Id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://storemanagement-productapi-bageckfvb0bghsfp.brazilsouth-01.azurewebsites.net/api/products/1",
+							"protocol": "https",
+							"host": [
+								"storemanagement-productapi-bageckfvb0bghsfp",
+								"brazilsouth-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Company-Id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"StoreId\": 1,\r\n    \"Name\": \"Product One\",\r\n    \"Description\": \"Product One Description\",\r\n    \"Price\": 1.34\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://storemanagement-productapi-bageckfvb0bghsfp.brazilsouth-01.azurewebsites.net/api/products/1",
+							"protocol": "https",
+							"host": [
+								"storemanagement-productapi-bageckfvb0bghsfp",
+								"brazilsouth-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Company-Id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://storemanagement-productapi-bageckfvb0bghsfp.brazilsouth-01.azurewebsites.net/api/products/1",
+							"protocol": "https",
+							"host": [
+								"storemanagement-productapi-bageckfvb0bghsfp",
+								"brazilsouth-01",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
