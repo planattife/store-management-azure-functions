@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreManagement.StoreApi", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreManagement.StoreApi.Tests", "StoreManagement.StoreApi.Tests\StoreManagement.StoreApi.Tests.csproj", "{212AEB03-95DB-424A-91A6-E623CDB20F0C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreManagement.ProductFunction", "StoreManagement.ProductFunction\StoreManagement.ProductFunction.csproj", "{5AF09678-2D02-4C4F-921E-EFAA658A029E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,8 +43,23 @@ Global
 		{212AEB03-95DB-424A-91A6-E623CDB20F0C}.Release|x64.Build.0 = Release|Any CPU
 		{212AEB03-95DB-424A-91A6-E623CDB20F0C}.Release|x86.ActiveCfg = Release|Any CPU
 		{212AEB03-95DB-424A-91A6-E623CDB20F0C}.Release|x86.Build.0 = Release|Any CPU
+		{5AF09678-2D02-4C4F-921E-EFAA658A029E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AF09678-2D02-4C4F-921E-EFAA658A029E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AF09678-2D02-4C4F-921E-EFAA658A029E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5AF09678-2D02-4C4F-921E-EFAA658A029E}.Debug|x64.Build.0 = Debug|Any CPU
+		{5AF09678-2D02-4C4F-921E-EFAA658A029E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5AF09678-2D02-4C4F-921E-EFAA658A029E}.Debug|x86.Build.0 = Debug|Any CPU
+		{5AF09678-2D02-4C4F-921E-EFAA658A029E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AF09678-2D02-4C4F-921E-EFAA658A029E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AF09678-2D02-4C4F-921E-EFAA658A029E}.Release|x64.ActiveCfg = Release|Any CPU
+		{5AF09678-2D02-4C4F-921E-EFAA658A029E}.Release|x64.Build.0 = Release|Any CPU
+		{5AF09678-2D02-4C4F-921E-EFAA658A029E}.Release|x86.ActiveCfg = Release|Any CPU
+		{5AF09678-2D02-4C4F-921E-EFAA658A029E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BCAD9BC3-FF27-4720-9786-EACC35799B6A}
 	EndGlobalSection
 EndGlobal
