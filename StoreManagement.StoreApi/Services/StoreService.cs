@@ -87,11 +87,6 @@ public class StoreService : IStoreService
         return stores;
     }
 
-    public Task<bool> StoreExistsAsync(int companyId, int storeId)
-    {
-        throw new NotImplementedException();
-    }
-
     public async Task<StoreResponseDto?> UpdateStoreAsync(int companyId, int storeId, UpdateStoreDto updateStoreDto)
     {
         if (string.IsNullOrWhiteSpace(updateStoreDto.Name))

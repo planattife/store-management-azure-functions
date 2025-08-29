@@ -5,5 +5,4 @@ public interface IStoreService
     Task<StoreResponseDto> CreateStoreAsync(int companyId, CreateStoreDto createStoreDto);
     Task<StoreResponseDto?> UpdateStoreAsync(int companyId, int storeId, UpdateStoreDto updateStoreDto);
     Task<bool> DeleteStoreAsync(int companyId, int storeId);
-    Task<bool> StoreExistsAsync(int companyId, int storeId);
 }
